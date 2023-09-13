@@ -1,0 +1,31 @@
+OUTPUT_DIR: 'experiments/test'
+MODEL:
+  ARCH: maskmvit
+  INITIALIZATION: mae_b_pt_k400_800
+SOLVER:
+  OPTIMIZING_METHOD: 'mt_adamw'
+  LAYER_DECAY: 1.0 # 0.999
+  ZERO_WD_1D_PARAM: True
+MVIT:
+  DEPTH: 12
+TRAIN:
+  MIXED_PRECISION: True
+  BATCH_SIZE: 256 # Total batch size
+DATA:
+  # NUM_FRAMES: [ 16, 16, 8, 8, 16, 16, 16, 16, 8, 8, 8, 8 ] # 2 + 2 + 4 + 4
+  NUM_FRAMES: [ 16, 16, 8, 8, 8, 8 ] # 2 + 4
+  SAMPLING_RATE: 4
+  # TRAIN_CROP_SIZE: [ 224, 224, 224, 224, 96, 96, 96, 96, 96, 96, 96, 96 ] # 4 + 8
+  TRAIN_CROP_SIZE: [ 224, 224, 96, 96, 96, 96 ] # 4 + 8
+  TEST_CROP_SIZE: 224
+  INPUT_CHANNEL_NUM: [ 3 ]
+  TRAIN_JITTER_ASPECT_RELATIVE: [ 0.75, 1.3333 ]
+  SSL_MOCOV2_AUG: True
+  COLOR_RND_GRAYSCALE: 0.2
+  SSL_COLOR_JITTER: True
+   : ' '
+  PATH_TO_DATA_DIR: '/data/cvg/datasets/Videos/kinetics-dataset/k400/'
+  PATH_PREFIX: '/data/cvg/datasets/Videos/kinetics-dataset/k400/'
+
+  RETURN_POS_INFO: True
+  DECODING_BACKEND: 'torchvision' # or 'decord_cpu' or 'decord_gpu'
